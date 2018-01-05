@@ -52,13 +52,13 @@ def Grid():
             glPushMatrix()
             # begin in the center
             glTranslatef((x * GRID_SPACING) + (GRID_SPACING / 2), (y * GRID_SPACING) + (GRID_SPACING / 2), 0)
-            # draw vertical arrow from the top down
+            # draw vertical arrow from the bottom up
             glBegin(GL_LINE_STRIP)
-            glVertex3fv((0, (GRID_SPACING / 2), 0))
-            glVertex3fv((0, (GRID_SPACING / 2)-(GRID_SPACING / 8), 0))
-            glVertex3fv(((GRID_SPACING / 16), (GRID_SPACING / 2) - (GRID_SPACING / 16), 0))
-            glVertex3fv((-(GRID_SPACING / 16), (GRID_SPACING / 2) - (GRID_SPACING / 16), 0))
-            glVertex3fv((0, (GRID_SPACING / 2) - (GRID_SPACING / 8), 0))
+            glVertex3fv((0, -(GRID_SPACING / 2), 0))
+            glVertex3fv((0, -(GRID_SPACING / 2)+(GRID_SPACING / 8), 0))
+            glVertex3fv(((GRID_SPACING / 16), -(GRID_SPACING / 2) + (GRID_SPACING / 16), 0))
+            glVertex3fv((-(GRID_SPACING / 16), -(GRID_SPACING / 2) + (GRID_SPACING / 16), 0))
+            glVertex3fv((0, -(GRID_SPACING / 2) + (GRID_SPACING / 8), 0))
             glEnd()
             # draw horizontal arrow from the left to right
             glBegin(GL_LINE_STRIP)
@@ -76,16 +76,19 @@ def Grid():
 def Values(frame):
     str_loc = 0
     for x in range(int(GRID_SIZE_X)):
-        for y in reversed(range(int(GRID_SIZE_Y))):
+        for y in range(int(GRID_SIZE_Y)):
             glPushMatrix()
             # begin in the center
             glTranslatef((x * GRID_SPACING) + (GRID_SPACING / 2), (y * GRID_SPACING) + (GRID_SPACING / 2), 0)
-            # draw vertical flow value from top
-            glut_print(-(GRID_SPACING/2)+(GRID_SPACING/16), GRID_SPACING/4, frame[str_loc][1])
+            # draw vertical flow value from bottom
+            glut_print(-(GRID_SPACING / 2) + (GRID_SPACING / 16), -GRID_SPACING / 3, frame[str_loc][1])
             # draw horizontal flow value from left
             glut_print(-(GRID_SPACING / 2) + (GRID_SPACING / 16), -GRID_SPACING/6, frame[str_loc][0])
             # draw pressure value
-            glut_print(-(GRID_SPACING / 2) + (GRID_SPACING / 16), -GRID_SPACING / 3, frame[str_loc][2])
+            glut_print(0, 0, frame[str_loc][2])
+            # draw coordinates
+            glut_print((GRID_SPACING * 0.3), (GRID_SPACING * 0.3), "%d,%d" % (x, y))
+
 
             glPopMatrix()
             str_loc += 1

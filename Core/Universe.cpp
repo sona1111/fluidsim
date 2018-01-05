@@ -14,7 +14,7 @@ dataFrames Universe::run(double timeStepSize){
     //for each point you should write xvelocity, yvelocity, and pressure data in that order
     dataFrames frames = {0};
 
-
+    gridArray buffer_swap_tmp;
 
     int cell = 0;
     for(int timeStep=0; timeStep<NUM_FRAMES; timeStep++){
@@ -31,7 +31,7 @@ dataFrames Universe::run(double timeStepSize){
 
                 //advect the pressure
                 printArr(pressure);
-                pressure[i][j] = advect(i, j, pressure, timeStepSize);
+                pressure_buffer[i][j] = advect(i, j, pressure, timeStepSize);
 
 
 
@@ -39,6 +39,11 @@ dataFrames Universe::run(double timeStepSize){
 
             }
         }
+
+        //flip the buffers
+        buffer_swap_tmp = pressure;
+        pressure = pressure_buffer;
+        pressure_buffer = buffer_swap_tmp;
     }
 
     return frames;
@@ -52,6 +57,9 @@ void Universe::setState(gridArray u_x_init, gridArray u_y_init, gridArray pressu
     u_x = u_x_init;
     u_y = u_y_init;
     pressure = pressure_init;
+    u_x_buffer = u_x_init;
+    u_y_buffer = u_y_init;
+    pressure_buffer = pressure_init;
 
 }
 

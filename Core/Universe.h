@@ -33,6 +33,9 @@ private:
     gridArray pressure; // = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
     gridArray u_x;
     gridArray u_y;
+    gridArray pressure_buffer; // = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
+    gridArray u_x_buffer;
+    gridArray u_y_buffer;
 
 public:
 
