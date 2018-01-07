@@ -18,6 +18,13 @@ initData DataImport::readState() {
     int x = 0;
     int y = 0;
 
+
+    /*
+     * For each line read, we have a,b,c,d , where each line is one grid element
+     * a: u_x , b: u_y , c: pressure ,
+     * d: type of voxel where 'e' is empty, 'f' is fluid, 's' is solid
+     */
+
     while (std::getline(infile, line))
     {
         std::istringstream iss(line);
@@ -31,6 +38,7 @@ initData DataImport::readState() {
         initialFrame.u_x[x][y] = std::stod(dataStr[0]);
         initialFrame.u_y[x][y] = std::stod(dataStr[1]);
         initialFrame.pressure[x][y] = std::stod(dataStr[2]);
+        initialFrame.contents[x][y] = dataStr[3][0];
 
         x++;
 

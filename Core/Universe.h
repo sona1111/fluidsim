@@ -6,6 +6,7 @@
 #define FLUIDSIM_UNIVERSE_H
 
 #include <array>
+#include <tuple>
 #include <cmath>
 #include <iostream>
 #include "../Constants.h"
@@ -48,6 +49,14 @@ public:
     void setState(gridArray u_x_init, gridArray u_y_init, gridArray pressure_init);
 
     void printArr(gridArray &gridVals);
+
+    std::pair<double, double> velocity_at_center(int x, int y);
+
+    std::pair<double, double> velocity_at_vert_face(int x, int y);
+
+    std::pair<double, double> velocity_at_horiz_face(int x, int y);
+
+    std::pair<double, double> update_velocity(int x_g_x, int x_g_y, double delta_t);
 };
 
 
