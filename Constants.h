@@ -5,10 +5,12 @@
 #ifndef FLUIDSIM_CONSTANTS_H
 #define FLUIDSIM_CONSTANTS_H
 
-const int NUM_GRID_CELLS_X = 4;
-const int NUM_GRID_CELLS_Y = 4;
+const int NUM_GRID_CELLS_X = 7;
+const int NUM_GRID_CELLS_Y = 7;
 const int NUM_GRID_CELLS = NUM_GRID_CELLS_X * NUM_GRID_CELLS_Y;
-const int NUM_FRAMES = 15;
+const int NUM_FRAMES = 10;
+
+const char OFFGRID_CONTENTS = 'e';
 
 //typedef std::array<double, NUM_FRAMES*NUM_GRID_CELLS*3> dataFrames;
 typedef std::array<std::array<double, NUM_GRID_CELLS_X>, NUM_GRID_CELLS_Y> gridArray;

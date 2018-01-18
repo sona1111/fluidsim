@@ -6,8 +6,8 @@ from OpenGL.GLU import *
 from OpenGL.GLUT import *
 
 
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 800
+WINDOW_WIDTH = 1300
+WINDOW_HEIGHT = 1300
 
 def glut_print( x,  y,  text):
 
@@ -29,8 +29,8 @@ def glut_print( x,  y,  text):
     # glPopMatrix()
 
 
-GRID_SIZE_X = 4.0
-GRID_SIZE_Y = 4.0
+GRID_SIZE_X = 7.0
+GRID_SIZE_Y = 7.0
 GRID_SPACING = 1.0 / GRID_SIZE_Y
 def Grid():
 
@@ -86,8 +86,8 @@ def Values(frame):
             glut_print(-(GRID_SPACING / 2) + (GRID_SPACING / 16), -GRID_SPACING/6, frame[str_loc][0])
             # draw pressure value
             glut_print(0, 0, frame[str_loc][2])
-            # draw coordinates
-            glut_print((GRID_SPACING * 0.3), (GRID_SPACING * 0.3), "%d,%d" % (x, y))
+            # draw coordinates, content
+            glut_print((GRID_SPACING * 0.2), (GRID_SPACING * 0.4), "%d,%d,%s" % (x, y, frame[str_loc][3]))
 
 
             glPopMatrix()
@@ -97,6 +97,7 @@ def Values(frame):
 
 yLength = 0
 xLength = 0
+numFrames = 0
 
 
 def read_frames():
@@ -108,17 +109,18 @@ def read_frames():
         vx is the velocity out of the left face, pointing right and
         vy is the velocity out of the top face, pointing down
     """
-    global xLength, yLength
+    global xLength, yLength, numFrames
     frames = []
     with open('/home/paul/dev/fluidsim/py/frames.dat', 'r') as f:
         for line in f:
             frame = []
             for cell in line.split(';'):
                 d = cell.split(',')
-                frame.append((str(d[0]), str(d[1]), str(d[2]),))
+                frame.append((str(d[0]), str(d[1]), str(d[2]), str(d[3]),))
             frames.append(frame)
     xLength = len(frames[0])
     yLength = len(frames[0])
+    numFrames = len(frames)
     return frames
 
 
@@ -165,12 +167,16 @@ def display():
     # doneFlag = True
 
 def keyboard(key, x, y):
-    global currentFrame, winID
+    global currentFrame, winID, numFrames
 
     if key == b'z':
-        currentFrame -= 1
+        if currentFrame > 0:
+            currentFrame -= 1
     if key == b'x':
-        currentFrame += 1
+        if currentFrame < numFrames-1:
+            currentFrame += 1
+    if key == b'c':
+        currentFrame = 0
 
     if key == b'q':
         glutDestroyWindow(winID)
@@ -202,7 +208,7 @@ def main2():
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
     glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT)
-    glutInitWindowPosition(100, 100)
+    glutInitWindowPosition(0, 0)
     winID = glutCreateWindow("Fluid Simulator")
 
 

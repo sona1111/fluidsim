@@ -14,9 +14,9 @@ class Interpolators {
 
 public:
 
-    static double linear_interpolate(double x, int y, gridArray &gridvals);
-
     static double bilinear_interpolate(double x, double y, gridArray &gridvals);
+
+    static double linear_interpolate(double x, int i, char dim, gridArray &gridvals);
 };
 
 

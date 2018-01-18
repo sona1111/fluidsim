@@ -22,7 +22,7 @@ int main() {
     Universe Uni{};
 
 
-    Uni.setState(init_Data.u_x, init_Data.u_y, init_Data.pressure);
+    Uni.setState(init_Data.u_x, init_Data.u_y, init_Data.pressure, init_Data.contents);
 
     dataFrames frames = Uni.run(1.0);
 

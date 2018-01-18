@@ -34,6 +34,7 @@ private:
     gridArray pressure; // = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
     gridArray u_x;
     gridArray u_y;
+    gridArray_char contents;
     gridArray pressure_buffer; // = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
     gridArray u_x_buffer;
     gridArray u_y_buffer;
@@ -46,7 +47,7 @@ public:
 
     dataFrames run(double timeStepSize);
 
-    void setState(gridArray u_x_init, gridArray u_y_init, gridArray pressure_init);
+    void setState(gridArray u_x_init, gridArray u_y_init, gridArray pressure_init, gridArray_char contents_init);
 
     void printArr(gridArray &gridVals);
 
@@ -57,6 +58,10 @@ public:
     std::pair<double, double> velocity_at_horiz_face(int x, int y);
 
     std::pair<double, double> update_velocity(int x_g_x, int x_g_y, double delta_t);
+
+    double update_velocity_edge(int x, int y, double delta_t);
+
+    std::pair<double, double> update_velocity2(int x, int y, double delta_t);
 };
 
 
