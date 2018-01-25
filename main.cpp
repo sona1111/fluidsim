@@ -22,7 +22,7 @@ int main() {
     Universe Uni{};
 
 
-    Uni.setState(init_Data.u_x, init_Data.u_y, init_Data.pressure, init_Data.contents);
+    Uni.setState(init_Data.u_x, init_Data.u_y, init_Data.density, init_Data.contents);
 
     dataFrames frames = Uni.run(1.0);
 
@@ -32,7 +32,7 @@ int main() {
 
 
     //double testval = 1.0;
-    //frames.pressure[0*NUM_GRID_CELLS+1] = 5.0;
+    //frames.density[0*NUM_GRID_CELLS+1] = 5.0;
 //    for(auto&& e:frames){
 //        e = testval;
 //        testval++;

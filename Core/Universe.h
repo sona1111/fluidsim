@@ -31,17 +31,21 @@ class Universe {
 
 private:
 
-    gridArray pressure; // = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
+    gridArray density; // = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
     gridArray u_x;
     gridArray u_y;
     gridArray_char contents;
-    gridArray pressure_buffer; // = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
-    gridArray u_x_buffer;
-    gridArray u_y_buffer;
+    gridArray density_buffer; // = {{{5, 8, 2}, {8, 3, 1}, {5, 3, 9}}};
+    gridArray u_x_buffer_a;
+    gridArray u_y_buffer_a;
+    gridArray u_x_buffer_b;
+    gridArray u_y_buffer_b;
 
 public:
 
-    double advect(int x_g_x, int x_g_y, gridArray& gridvals, double delta_t);
+    double advect_q(int x_g_x, int x_g_y, gridArray& gridvals, double delta_t);
+
+    std::pair<double, double> advect_velocity(int x_g_x, int x_g_y, double delta_t);
 
     double test();
 
@@ -62,6 +66,8 @@ public:
     double update_velocity_edge(int x, int y, double delta_t);
 
     std::pair<double, double> update_velocity2(int x, int y, double delta_t);
+
+    void null_project(int x, int y, double delta_t);
 };
 
 

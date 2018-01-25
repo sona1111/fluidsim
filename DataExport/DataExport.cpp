@@ -22,7 +22,7 @@ void DataExport::writeFrames(dataFrames &frames) {
             ofs << ",";
             ofs << std::to_string(frames.u_y[frame*NUM_GRID_CELLS+cell]);
             ofs << ",";
-            ofs << std::to_string(frames.pressure[frame*NUM_GRID_CELLS+cell]);
+            ofs << std::to_string(frames.density[frame*NUM_GRID_CELLS+cell]);
             ofs << ",";
             ofs << frames.contents[frame*NUM_GRID_CELLS+cell];
 

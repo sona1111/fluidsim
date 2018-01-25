@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import time
+import cmath
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
@@ -29,8 +30,8 @@ def glut_print( x,  y,  text):
     # glPopMatrix()
 
 
-GRID_SIZE_X = 7.0
-GRID_SIZE_Y = 7.0
+GRID_SIZE_X = 5
+GRID_SIZE_Y = 5
 GRID_SPACING = 1.0 / GRID_SIZE_Y
 def Grid():
 
@@ -84,10 +85,21 @@ def Values(frame):
             glut_print(-(GRID_SPACING / 2) + (GRID_SPACING / 16), -GRID_SPACING / 3, frame[str_loc][1])
             # draw horizontal flow value from left
             glut_print(-(GRID_SPACING / 2) + (GRID_SPACING / 16), -GRID_SPACING/6, frame[str_loc][0])
-            # draw pressure value
-            glut_print(0, 0, frame[str_loc][2])
+            # draw q value
+            glut_print(0, (GRID_SPACING / 4), frame[str_loc][2])
             # draw coordinates, content
             glut_print((GRID_SPACING * 0.2), (GRID_SPACING * 0.4), "%d,%d,%s" % (x, y, frame[str_loc][3]))
+            # draw flow arrow
+            glRotatef(cmath.phase(complex(float(frame[str_loc][1]), -float(frame[str_loc][0]))) * 180 / cmath.pi, 0, 0,
+                      1)
+            glBegin(GL_LINE_STRIP)
+            glVertex3fv((0, -(GRID_SPACING / 16), 0))
+            glVertex3fv((0, (GRID_SPACING / 16), 0))
+            glVertex3fv(((GRID_SPACING / 32), 0, 0))
+            glVertex3fv((-(GRID_SPACING / 32), 0, 0))
+            glVertex3fv((0, (GRID_SPACING / 16), 0))
+            glEnd()
+            #glut_print((GRID_SPACING * 0.2), (GRID_SPACING * 0.4), "%d,%d,%s" % (x, y, frame[str_loc][3]))
 
 
             glPopMatrix()
